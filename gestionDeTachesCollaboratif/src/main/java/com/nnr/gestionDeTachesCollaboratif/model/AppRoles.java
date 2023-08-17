@@ -2,6 +2,7 @@ package com.nnr.gestionDeTachesCollaboratif.model;
 
 import java.io.Serializable;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -27,5 +28,6 @@ public class AppRoles implements Serializable{
 	private Long id;
 	
 	@NotNull
+	@Column(unique = true)
 	private String roleName;
 }

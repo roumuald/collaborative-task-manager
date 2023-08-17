@@ -6,7 +6,7 @@ import com.nnr.gestionDeTachesCollaboratif.model.Tasks;
 
 public interface InterfaceTasks {
 	
-	public Tasks newTask(Tasks task);
+	public Tasks newTask(Tasks task, Long idProjet);
 	
 	public void deleteTask(Long idTask);
 	

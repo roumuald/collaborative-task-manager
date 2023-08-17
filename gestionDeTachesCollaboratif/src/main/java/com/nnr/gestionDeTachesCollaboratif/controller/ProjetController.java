@@ -46,7 +46,5 @@ public class ProjetController {
 	public ResponseEntity<String> addUserToProjet(@RequestBody MemberProjet member, @PathVariable Long idProjet, @PathVariable Long idUser) {
 		interfaceProjet.addUserToProjet(member, idProjet, idUser);
 		return ResponseEntity.ok("Membre ajoute au projet avec success !!!");
-		
 	}
-
 }

@@ -9,9 +9,11 @@ import com.nnr.gestionDeTachesCollaboratif.enumerate.TaskStatus;
 import com.nnr.gestionDeTachesCollaboratif.exception.GestionDeTachesCollaboratifException;
 import com.nnr.gestionDeTachesCollaboratif.model.AttributionTasks;
 import com.nnr.gestionDeTachesCollaboratif.model.Files;
+import com.nnr.gestionDeTachesCollaboratif.model.Projet;
 import com.nnr.gestionDeTachesCollaboratif.model.Tasks;
 import com.nnr.gestionDeTachesCollaboratif.model.Users;
 import com.nnr.gestionDeTachesCollaboratif.repository.FilesRepository;
+import com.nnr.gestionDeTachesCollaboratif.repository.ProjetRepository;
 import com.nnr.gestionDeTachesCollaboratif.repository.TasksRepository;
 import com.nnr.gestionDeTachesCollaboratif.repository.UsersRepository;
 
@@ -25,20 +27,30 @@ public class ImplementInterfaceTasks implements InterfaceTasks{
 	private TasksRepository tasksRepository;
 	private UsersRepository userRepository;
 	private FilesRepository filesRepository;
+	private ProjetRepository projetRepository;
 
 	public ImplementInterfaceTasks(TasksRepository tasksRepository, UsersRepository userRepository,
-			FilesRepository filesRepository) {
+			FilesRepository filesRepository, ProjetRepository projetRepository) {
 		super();
 		this.tasksRepository = tasksRepository;
 		this.userRepository = userRepository;
 		this.filesRepository=filesRepository;
+		this.projetRepository= projetRepository;
 	}
 
 	@Override
-	public Tasks newTask(Tasks task) {
-		task.setStatus(TaskStatus.TO_DO);
-		Tasks taskfinal = tasksRepository.save(task);
-		return taskfinal;
+	public Tasks newTask(Tasks task, Long idProjet) {
+		Optional<Projet> projet = projetRepository.findById(idProjet);
+		if(projet.isPresent()) {
+			task.setStatus(TaskStatus.TO_DO);
+			task.setProjet(projet.get());
+			Tasks taskfinal = tasksRepository.save(task);
+			return taskfinal;
+		}else {
+			log.error("Aucun projet disponible avec l'identifiant"+""+ idProjet);
+			throw new GestionDeTachesCollaboratifException("Aucun projet disponible avec l'identifiant"+""+idProjet);
+		}
+		
 	}
 
 	@Override

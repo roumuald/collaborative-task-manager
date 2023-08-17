@@ -36,7 +36,5 @@ public class Files implements Serializable{
 	
 	@ManyToOne(fetch = FetchType.EAGER)
 	private Tasks task;
-	
-	
 
 }

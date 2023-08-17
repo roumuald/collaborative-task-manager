@@ -28,7 +28,7 @@ public class DashbordController {
 		return interfaceDashbord.getAllProgressProjet();
 	}
 	
-	@RequestMapping(method = RequestMethod.GET, path = "/allFinishedProje")
+	@RequestMapping(method = RequestMethod.GET, path = "/allFinishedProjet")
 	public List<Projet> getAllFinishedProjet(){
 		return interfaceDashbord.getAllFinishedProjet();
 	}

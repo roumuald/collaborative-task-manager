@@ -2,20 +2,15 @@ package com.nnr.gestionDeTachesCollaboratif.model;
 
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
 
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonProperty.Access;
-import com.nnr.gestionDeTachesCollaboratif.enumerate.Roles;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
-import jakarta.persistence.EnumType;
-import jakarta.persistence.Enumerated;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -47,14 +42,11 @@ public class Users implements Serializable{
 	
 	@NotNull
 	@Column(unique = true)
-	private String email;
+	private String username;
 	
 	@NotNull
 	@JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
 	private String password;
-	
-	//@Enumerated(EnumType.STRING)
-	//private Roles roles;
 	
 	@OneToMany(mappedBy = "users")
 	@JsonIgnore
@@ -73,7 +65,7 @@ public class Users implements Serializable{
 	private List<Comments> comment = new ArrayList<>();
 	
 	@ManyToMany(fetch =FetchType.EAGER )
-	private Collection<AppRoles> roles = new ArrayList<>();
+	private List<AppRoles> roles = new ArrayList<>();
 	
 	
 	public void setPassword(String password) {

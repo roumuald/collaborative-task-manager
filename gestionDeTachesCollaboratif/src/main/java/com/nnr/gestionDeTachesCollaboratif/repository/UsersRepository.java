@@ -8,6 +8,8 @@ import com.nnr.gestionDeTachesCollaboratif.model.Users;
 @Repository
 public interface UsersRepository extends JpaRepository<Users, Long>{
 	
-	public Users findByEmail(String email);
+	//public Users findByEmail(String email);
+	
+	public Users findByUsername(String username);
 
 }

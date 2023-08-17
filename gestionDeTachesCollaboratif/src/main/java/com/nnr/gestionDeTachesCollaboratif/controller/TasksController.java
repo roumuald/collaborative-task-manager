@@ -27,18 +27,18 @@ public class TasksController {
 		this.interfaceTasks = interfaceTasks;
 	}
 	
-	@RequestMapping(method = RequestMethod.POST, path = "/newTasks")
-	public Tasks newTask(Tasks task) {
-		return interfaceTasks.newTask(task);
+	@RequestMapping(method = RequestMethod.POST, path = "/newTasks/{idProjet}")
+	public Tasks newTask(@RequestBody Tasks task, @PathVariable Long idProjet) {
+		return interfaceTasks.newTask(task, idProjet);
 	}
 	
-	@RequestMapping(method = RequestMethod.DELETE, path = "/deleteTasks")
-	public void deleteTask(Long idTask) {
+	@RequestMapping(method = RequestMethod.DELETE, path = "/deleteTasks/{idTask}")
+	public void deleteTask(@PathVariable Long idTask) {
 		interfaceTasks.deleteTask(idTask);
 	}
 	
-	@RequestMapping(method = RequestMethod.PUT, path = "/updateTasks")
-	public Tasks updateTask(Tasks newTask, Long idTask) {
+	@RequestMapping(method = RequestMethod.PUT, path = "/updateTasks/{idTask}")
+	public Tasks updateTask(@RequestBody Tasks newTask, @PathVariable Long idTask) {
 		return interfaceTasks.updateTask(newTask, idTask);
 	}
 	
@@ -48,7 +48,7 @@ public class TasksController {
         return ResponseEntity.ok("Tache attribuee avec success !!!");
     }
 	
-	@RequestMapping(method = RequestMethod.POST, path = "/addFileToTask/{idTask}/")
+	@RequestMapping(method = RequestMethod.POST, path = "/addFileToTask/{idTask}")
     public ResponseEntity<String> addFileToTask(@RequestBody Files files, @PathVariable Long idTask) {
         interfaceTasks.addFileToTask(files, idTask);
         return ResponseEntity.ok("Fichier ajoute a la Tache avec success !!!");
